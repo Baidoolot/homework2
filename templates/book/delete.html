@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post">{% csrf_token %}
+<div class="text-center">
+  <div class="card-body">
+      <h3 class="card-title">Delete</h3>
+      <p class="card-text"><h5 class="card-title" >Are you sure you want to delete "{{ posts }}" ?</h5></p>
+      <input class="btn btn-secondary" type="submit" value="Submit" />
+  </div>
+</div>
+</form>
+{% endblock %}

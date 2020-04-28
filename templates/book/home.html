@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block title %}
+    Home
+{% endblock %}
+
+
+{% block content %}
+<div class="cards">
+{% for book in books %}
+  <div class="card">
+    <div class="card__image-holder">
+      <img class="card__image" src="{{book.image.url}}" alt="wave" />
+    </div>
+    <div class="card-title">
+      <a href="{% url 'detail' book.id %}" class="toggle-info btn">
+        <span class="left"></span>
+        <span class="right"></span>
+      </a>
+      <h2>
+        {{ book.author }}
+        <small>{{ book.title }}</small>
+      </h2>
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

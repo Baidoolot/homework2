@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/read.css' %}">
+{% endblock %}
+
+
+{% block title %}
+    Read
+{% endblock %}
+
+
+{% block content %}
+<ul class="nav justify-content-center">
+{% if request.user.is_authenticated and request.user.is_staff %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'update' posts.id %}">Update</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'delete' posts.id %}">Delete</a>
+    </li>
+{% endif %}
+</ul>
+<div class="container">
+    <div class="card-content">
+        <h1>{{ posts.title }}</h1>
+        <small>{{ posts.author }}</small>
+        <hr/>
+        <div id="content-main">
+        <a href="{{posts.book.url}}">open</a>
+        </div>
+        <hr/>
+    </div>
+    <h4>Comments</h4>
+    {% for comment in comments %}
+        <div class="card-comment">
+            <p>{{ comment.user_name }}. <small>{{ comment.body }}</small></p>
+
+        </div>
+    {% endfor %}
+    <form method='POST'>
+        {% csrf_token %}
+        {{ comment_form|crispy }}
+        <input type="submit" value="submit" class="btn btn-dark">
+    </form>
+</div>
+
+{% endblock %}
